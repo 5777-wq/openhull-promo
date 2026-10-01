@@ -1,4 +1,5 @@
 import React from "react";
+import { FILM_META } from "../version";
 import { ThreeCanvas } from "@remotion/three";
 import { useCurrentFrame, staticFile, Audio } from "remotion";
 import * as THREE from "three";
@@ -907,7 +908,7 @@ function Film() {
               transform: `translateY(${Math.round((1 - ease(frame / 24)) * 34)}px)`,
             }}
           >
-            <Overline light>OPENHULL · v1.6.0</Overline>
+            <Overline light>{`OPENHULL · ${FILM_META.version}`}</Overline>
             <div
               style={{
                 ...txt(190, 500),

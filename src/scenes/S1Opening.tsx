@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { DarkBackdrop } from "../components/DarkBackdrop";
 import { SlowZoom } from "../components/SlowZoom";
+import { FILM_META } from "../version";
 import { enterStyle } from "../components/Enter";
 import { EmblemDrawn } from "../components/Emblem";
 import { COLORS, CYAN, gradientTextStyle } from "../theme";
@@ -126,7 +127,7 @@ export const S1Opening: React.FC = () => {
               color: "#7DD3FC",
             }}
           >
-            v1.6.0
+            {FILM_META.version}
           </span>
         </div>
       </AbsoluteFill>

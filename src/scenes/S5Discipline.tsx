@@ -7,12 +7,17 @@ import { FONT_MONO, FONT_SANS, FONT_SERIF } from "../fonts";
 import { DarkBackdrop } from "../components/DarkBackdrop";
 import { SlowZoom } from "../components/SlowZoom";
 
-// GZ 复原力臂曲线（示意形状：峰值约 36°，90° 归零，非任何具体船的数据）
+// GZ 复原力臂曲线——45,000 t 算例（FILM-45000 任务书全链真实计算，
+// run_taskbook() 的 gz_curve 输出；数据来自 premium/design-data.ts）。
+// 峰值 1.392 m @ 26.75°，消失角 61.48°，70° 后为负（倾覆侧如实画出）。
 const GZ_CURVE_D =
-  "M 60 370 C 150 240, 235 120, 335 102 C 425 90, 560 220, 740 370";
-const GZ_AREA_D = `${GZ_CURVE_D} L 740 370 L 60 370 Z`;
-const PEAK_X = 335;
-const PEAK_Y = 102;
+  "M 60.0 219.6 C 72.6 208.0 110.4 174.4 135.6 150.2 C 160.7 126.0 190.0 89.9 211.1 74.6 C 232.2 59.3 249.5 60.8 262.1 58.4 C 274.7 56.0 270.0 54.8 286.7 60.2 C 303.4 65.6 337.0 76.8 362.2 90.7 C 387.4 104.5 412.6 123.4 437.8 143.1 C 463.0 162.9 488.1 186.0 513.3 209.1 C 538.5 232.1 563.7 257.2 588.9 281.5 C 614.1 305.9 651.9 342.9 664.4 355.1";
+const GZ_AREA_D =
+  "M 60.0 219.6 C 72.6 208.0 110.4 174.4 135.6 150.2 C 160.7 126.0 190.0 89.9 211.1 74.6 C 232.2 59.3 249.5 60.8 262.1 58.4 C 274.7 56.0 270.0 54.8 286.7 60.2 C 303.4 65.6 337.0 76.8 362.2 90.7 C 387.4 104.5 412.6 123.4 437.8 143.1 C 463.0 162.9 500.7 198.1 513.3 209.1 L 524.5 219.6 L 60 219.6 Z";
+const PEAK_X = 262.1;
+const PEAK_Y = 58.4;
+const ZERO_Y = 219.6;
+const VANISH_X = 524.5;
 
 // 工程纪律四条（口径：白名单公式，无"原书"字样）
 const RULES = [
@@ -112,7 +117,10 @@ export const S5Discipline: React.FC = () => {
                   letterSpacing: "0.06em",
                 }}
               >
-                GZ 复原力臂曲线 · 大倾角稳性
+                <span>GZ 复原力臂曲线 · 大倾角稳性</span>
+                <span style={{ float: "right", color: "#475569" }}>
+                  45,000 t 算例 · 真实计算数据
+                </span>
               </div>
               <svg viewBox="0 0 780 420" width="100%" style={{ marginTop: 18 }}>
                 <defs>
@@ -134,8 +142,19 @@ export const S5Discipline: React.FC = () => {
                 ))}
                 {/* 安全域渐变填充 */}
                 <path d={GZ_AREA_D} fill="url(#gzArea)" opacity={draw} />
-                {/* 坐标轴 */}
+                {/* 坐标轴 + 零线（消失角以下为倾覆侧，如实展示） */}
                 <path d="M 60 40 L 60 370 L 740 370" fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth={2} />
+                <path d={`M 60 ${ZERO_Y} L 740 ${ZERO_Y}`} stroke="rgba(255,255,255,0.14)" strokeWidth={1.4} strokeDasharray="2 6" fill="none" />
+                <text x={44} y={ZERO_Y + 6} textAnchor="end" fontFamily={FONT_MONO} fontSize={17} fill="#475569">
+                  0
+                </text>
+                {/* 消失角刻度：曲线与零线的交点 */}
+                <g opacity={marker}>
+                  <path d={`M ${VANISH_X} ${ZERO_Y} L ${VANISH_X} 370`} stroke="#38BDF8" strokeWidth={1.4} strokeDasharray="4 6" opacity={0.45} fill="none" />
+                  <text x={VANISH_X + 12} y={352} fontFamily={FONT_MONO} fontSize={18} fill="#64748B">
+                    消失角 61.5°
+                  </text>
+                </g>
                 {/* 轴刻度 */}
                 {[
                   { x: 60, label: "0°" },
@@ -147,7 +166,7 @@ export const S5Discipline: React.FC = () => {
                     {t.label}
                   </text>
                 ))}
-                <text x={70} y={62} fontFamily={FONT_MONO} fontSize={19} fill="#64748B">
+                <text x={70} y={32} fontFamily={FONT_MONO} fontSize={19} fill="#64748B">
                   GZ / m
                 </text>
                 {/* GZ max：双层光环 + 双向参考虚线 */}
@@ -158,7 +177,7 @@ export const S5Discipline: React.FC = () => {
                   <circle cx={PEAK_X} cy={PEAK_Y} r={6.5} fill="none" stroke={CYAN} strokeWidth={1.8} opacity={0.9} />
                   <circle cx={PEAK_X} cy={PEAK_Y} r={3.5} fill="#7DD3FC" />
                   <text x={PEAK_X + 18} y={PEAK_Y - 16} textAnchor="start" fontFamily={FONT_MONO} fontSize={20} fill="#E2E8F0">
-                    GZ max
+                    GZ max 1.392 m
                   </text>
                 </g>
                 {/* 曲线逐点绘出（渐变青蓝笔触） */}

@@ -6,6 +6,7 @@ import { CYAN, GLASS, INK_DARK } from "../theme";
 import { FONT_MONO, FONT_SERIF } from "../fonts";
 import { DarkBackdrop } from "../components/DarkBackdrop";
 import { SlowZoom } from "../components/SlowZoom";
+import { FILM_META } from "../version";
 
 const EASE = Easing.bezier(0.22, 0.61, 0.36, 1);
 
@@ -39,7 +40,10 @@ export const S6Validation: React.FC = () => {
     config: { damping: 20, stiffness: 60 },
     durationInFrames: 40,
   });
-  const testCount = Math.min(459, Math.floor(roll * 459));
+  const testCount = Math.min(
+    FILM_META.tests,
+    Math.floor((roll * FILM_META.tests)),
+  );
 
   return (
     <AbsoluteFill>
@@ -147,7 +151,7 @@ export const S6Validation: React.FC = () => {
               })}
             </div>
 
-            {/* 459：发布会级巨型滚动计数 */}
+            {/* FILM_META.tests：发布会级巨型滚动计数 */}
             <div
               style={{
                 ...enterStyle(frame, 62, 20),
@@ -169,7 +173,7 @@ export const S6Validation: React.FC = () => {
                   WebkitBackgroundClip: "text",
                   color: "transparent",
                   WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 0 30px rgba(56,189,248,0.4))",
+                  filter: "drop-shadow(0 0 22px rgba(148,197,255,0.16))",
                 }}
               >
                 {testCount}
@@ -210,7 +214,7 @@ export const S6Validation: React.FC = () => {
                 letterSpacing: "0.04em",
               }}
             >
-              公开基准船 · 34 条公开验收记录 · KCS 失速互检 0.929 vs 0.932
+              公开基准船 · {FILM_META.validationRecords} 条公开验收记录 · KCS 失速互检 {FILM_META.kcs}
             </div>
 
             {/* 角标 */}

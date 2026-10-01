@@ -10,8 +10,8 @@ const EASE9 = Easing.bezier(0.22, 0.61, 0.36, 1);
 
 export const S9Outro: React.FC = () => {
   const frame = useCurrentFrame();
-  // 电影感落幕：最后 20 帧缓慢后拉 + 虚焦 + 沉入黑暗
-  const exit = interpolate(frame, [145, 165], [0, 1], {
+  // 电影感落幕：收束压到最后 10 帧，正片内容多留 0.3s（round-9b 评审：尾段黑场过长）
+  const exit = interpolate(frame, [155, 165], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: EASE9,

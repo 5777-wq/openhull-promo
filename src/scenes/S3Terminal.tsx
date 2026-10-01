@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
 import { DarkBackdrop } from "../components/DarkBackdrop";
 import { SlowZoom } from "../components/SlowZoom";
+import { FILM_META } from "../version";
 import { enterStyle } from "../components/Enter";
 import { COLORS } from "../theme";
 import { FONT_MONO } from "../fonts";
@@ -146,7 +147,7 @@ export const S3Terminal: React.FC = () => {
               )}
             </div>
 
-            {/* 版本与预检（真实事实：v1.6.0、8 道适用域关卡） */}
+            {/* 版本与预检（数字取自 src/version.ts 单源） */}
             <div
               style={{
                 ...rowStyle(frame, 74),
@@ -154,7 +155,7 @@ export const S3Terminal: React.FC = () => {
                 color: "rgba(216,230,243,0.52)",
               }}
             >
-              openhull v1.6.0 · 适用域预检 8/8 通过
+              {`openhull ${FILM_META.version} · 适用域预检 8/8 通过`}
             </div>
 
             {/* 阶段清单：label + 点线引导 + 状态 */}

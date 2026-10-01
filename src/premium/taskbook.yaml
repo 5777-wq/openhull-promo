@@ -1,0 +1,16 @@
+schema_version: 1
+taskbook_id: FILM-45000
+ship_type: bulk_carrier
+requirements:
+  deadweight_t: 45000
+  service_speed_kn: 16.0
+  kg_m: 9.5
+  drafts:
+    design_draft_m: 11.6
+constraints:
+  block_coefficient_design: 0.80
+propeller:
+  blades_z: 4
+  expanded_area_ratio: 0.55
+  rpm: 100
+  shaft_immersion_m: 6.0

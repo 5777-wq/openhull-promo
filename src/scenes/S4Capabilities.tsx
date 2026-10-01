@@ -12,7 +12,8 @@ import { FONT_MONO, FONT_SANS } from "../fonts";
 import { DarkBackdrop } from "../components/DarkBackdrop";
 import { SlowZoom } from "../components/SlowZoom";
 
-// 九个环节，文案取自官网 CAPABILITIES 卡片（逐字）
+// 官网 CAPABILITIES 卡片的九张高亮（官网现有十张：干舷校核并入了
+// 稳性/交付物叙事，影片按节奏保留九张，无数量文案上屏）
 const CARDS: { tag: string; title: string; desc: string }[] = [
   {
     tag: "DIMENSIONS",

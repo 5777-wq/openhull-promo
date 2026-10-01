@@ -126,7 +126,7 @@ export const S1Opening: React.FC = () => {
               color: "#7DD3FC",
             }}
           >
-            v1.3.1
+            v1.6.0
           </span>
         </div>
       </AbsoluteFill>

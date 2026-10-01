@@ -39,7 +39,7 @@ export const S6Validation: React.FC = () => {
     config: { damping: 20, stiffness: 60 },
     durationInFrames: 40,
   });
-  const testCount = Math.min(423, Math.floor(roll * 423));
+  const testCount = Math.min(459, Math.floor(roll * 459));
 
   return (
     <AbsoluteFill>
@@ -147,7 +147,7 @@ export const S6Validation: React.FC = () => {
               })}
             </div>
 
-            {/* 423：发布会级巨型滚动计数 */}
+            {/* 459：发布会级巨型滚动计数 */}
             <div
               style={{
                 ...enterStyle(frame, 62, 20),
@@ -210,7 +210,7 @@ export const S6Validation: React.FC = () => {
                 letterSpacing: "0.04em",
               }}
             >
-              公开基准船 · 27 条公开验收记录 · KCS 失速互检 0.929 vs 0.932
+              公开基准船 · 34 条公开验收记录 · KCS 失速互检 0.929 vs 0.932
             </div>
 
             {/* 角标 */}

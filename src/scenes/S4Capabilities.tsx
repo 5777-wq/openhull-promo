@@ -122,12 +122,13 @@ export const S4Capabilities: React.FC = () => {
               }}
             >
               {CARDS.map((card, i) => {
-                // 3D 错峰弹入：index*2 帧延迟，spring(damping14, stiffness110, mass0.8)
+                // 3D 错峰弹入：index*2 帧延迟；Telegram customSpring 底座
+                // mass5/stiffness900/damping100（约 3% 过冲，CAAnimationUtils.swift:85-88）
                 const p = spring({
                   frame: frame - (10 + i * 2),
                   fps,
-                  config: { damping: 14, stiffness: 110, mass: 0.8 },
-                  durationInFrames: 34,
+                  config: { damping: 100, stiffness: 900, mass: 5 },
+                  durationInFrames: 30,
                 });
                 const ty = interpolate(p, [0, 1], [30, 0]);
                 const rx = interpolate(p, [0, 1], [8, 0]);

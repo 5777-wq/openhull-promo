@@ -1,11 +1,16 @@
 import React from "react";
 import { Easing, interpolate, useCurrentFrame } from "remotion";
 
-// 全片统一缓动（官网同款 cubic-bezier），禁 linear 与生硬弹跳
-export const EASE = Easing.bezier(0.22, 0.61, 0.36, 1);
+// 全片统一缓动 = Telegram 招牌布局曲线 cubic-bezier(0.38, 0.7, 0.125, 1)
+// （CAAnimationUtils.swift:186，非 0.5s 弹簧的官方降级曲线，全库复用最高）
+export const EASE = Easing.bezier(0.38, 0.7, 0.125, 1);
 
-// 发布会级入场弹簧：阻尼适中、弹性干脆有力（全局基准 #3）
-export const POP = Easing.spring({ damping: 14, stiffness: 110, mass: 0.8 });
+// alpha 专用：Telegram 定律——透明度永远走 easeInEaseOut，不走弹簧
+export const EASE_ALPHA = Easing.bezier(0.42, 0, 0.58, 1);
+
+// 入场弹簧 = Telegram animateSpring 底座（mass 5 / stiffness 900，damping 88，
+// 阻尼比 0.66、约 6.5% 过冲；CAAnimationUtils.swift:338）——干脆、小幅回弹
+export const POP = Easing.spring({ damping: 88, stiffness: 900, mass: 5 });
 
 const clampOpts = {
   extrapolateLeft: "clamp",
@@ -22,7 +27,8 @@ export const enterStyle = (
   const window = [delay, delay + duration];
   const y = interpolate(frame, window, [24, 0], { ...clampOpts, easing: POP });
   return {
-    opacity: interpolate(frame, window, [0, 1], { ...clampOpts, easing: POP }),
+    // Telegram 组合律：alpha 走 easeInEaseOut，位移/缩放走弹簧
+    opacity: interpolate(frame, window, [0, 1], { ...clampOpts, easing: EASE_ALPHA }),
     translate: `0px ${Math.round(y)}px`,
     scale: interpolate(frame, window, [0.98, 1], {
       ...clampOpts,

@@ -177,14 +177,17 @@ export const S3Terminal: React.FC = () => {
                   {s.pass ? (
                     <span
                       style={{
-                        background: "#059669",
-                        color: "#FFFFFF",
+                        // round-9 评审：实心绿块太抢戏——终端语感的安静写法
+                        background: "rgba(52,211,153,0.10)",
+                        color: "#34D399",
+                        fontFamily: FONT_MONO,
                         fontWeight: 700,
-                        fontSize: 22,
-                        padding: "2px 14px",
+                        fontSize: 21,
+                        letterSpacing: "0.08em",
+                        padding: "3px 12px",
                         borderRadius: 6,
+                        border: "1px solid rgba(52,211,153,0.38)",
                         whiteSpace: "nowrap",
-                        boxShadow: "0 0 18px rgba(5,150,105,0.55)",
                         scale: String(
                           interpolate(
                             frame,

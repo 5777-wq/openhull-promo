@@ -141,14 +141,20 @@ export const S2Pain: React.FC = () => {
               </div>
             </div>
 
-            {/* 答案：词标 + 悬浮命令药丸 */}
+            {/* 答案：词标 + 悬浮命令药丸。inset-0 显式居中（round-9 评审：
+                词标要在画面正中央），上移 49px 让词标光学中心对准画布中心 */}
             <div
               style={{
                 position: "absolute",
-                translate: "0 96px",
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                translate: "0 49px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <div style={enterStyle(frame, 92, 24)}>

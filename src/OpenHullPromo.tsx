@@ -32,6 +32,8 @@ export const OpenHullPromo: React.FC = () => {
   return (
     <>
       <Audio src={staticFile("openhull-beat.wav")} />
+      {/* S7 打字声：tick 精确落在每个字符上屏的全局帧（make_typing.py 合成） */}
+      <Audio src={staticFile("openhull-typing.wav")} />
       <TransitionSeries>
         {SCENE_COMPONENTS.map((Component, i) => (
           <React.Fragment key={SCENES[i].id}>
